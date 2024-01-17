@@ -11,7 +11,7 @@ class Player(pygame.sprite.Sprite):
 
         self.move_speed = 250
 
-        self.image = pygame.Surface([32, 32])
+        self.image = pygame.Surface([32, 48])
         self.image.fill(lib.color.WHITE)
         self.rect = self.image.get_rect()
         self.rect.center = self.pos
