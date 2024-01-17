@@ -4,6 +4,7 @@ import pygame
 # project file imports
 import lib
 import debug
+import player
 
 pygame.init() # initialize the pygame module
 
@@ -17,6 +18,10 @@ class Game:
         lib.events = pygame.event.get() # initializing the lib.events list (NONE at start)
 
         self.debug_interface = debug.DebugInterface()
+
+        self.player = player.Player(100, 100)
+        self.player_group = pygame.sprite.Group()
+        self.player_group.add(self.player)
 
     def run(self):
         while self.running:
@@ -43,25 +48,19 @@ class Game:
                     self.debug_interface.toggle_active()
 
     def multi_events(self):
-        """
-        handles all repeating event inputs (held keys)
-        
-        ...
-
-        Returns
-        -------
-        None
-        """
-
         pass
 
     def draw(self):
         self.screen.fill(lib.color.BLACK)
 
+        self.player_group.draw(self.screen)
+
         if self.debug_interface.active:
             self.debug_interface.draw()
 
     def update(self):
+        self.player.update()
+
         self.debug_interface.update(self.clock)
         pygame.display.update()
         lib.delta_time = self.clock.tick(lib.framerate) / 1000
